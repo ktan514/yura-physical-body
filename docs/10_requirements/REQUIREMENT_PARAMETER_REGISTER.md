@@ -1,7 +1,7 @@
 # Full System Requirement Parameter Register
 
 Status: Active Full System Parameter Register
-Revision: 0.3-draft
+Revision: 0.4-draft
 
 ## 1. 目的
 
@@ -20,7 +20,7 @@ Full System Requirementsで「数値化が必要」と定義された性能・�
 | Parameter ID | Parameter | Status | Current value / guidance | Freeze owner | Verification |
 |---|---|---|---|---|---|
 | PAR-MOT-001 | Physical Head rotation DoF | FIXED | Yaw / Pitch / Roll = 3 DoF | #6 | Inspection/Test |
-| PAR-MOT-002 | Yaw normal usable range | FIXED | neutralから左右それぞれ65°以上 | #6 | Angle measurement |
+| PAR-MOT-002 | Yaw normal usable range | FIXED | 通常使用可能範囲として左右合計180°以上。左右配分はmechanism designで決定し、360°連続回転は必須としない | #6 | Angle measurement |
 | PAR-MOT-003 | Pitch normal usable range | FIXED | neutralから上25°以上 / 下30°以上 | #6 | Angle measurement |
 | PAR-MOT-004 | Roll normal usable range | FIXED | neutralから左右それぞれ20°以上 | #6 | Angle measurement |
 | PAR-MOT-005 | Absolute hard-limit range per axis | TBD | normal usable range外側にencoder/calibration/overshootを吸収するmechanical safety marginを持つ。具体角度はmechanism designで確定 | #6,#9 | Limit test |
