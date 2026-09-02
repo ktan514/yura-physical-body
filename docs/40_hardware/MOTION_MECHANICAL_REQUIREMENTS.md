@@ -1,7 +1,7 @@
 # 3DoF Motion / Mechanical Requirements
 
 Status: Draft for Issue #6 Review
-Revision: 0.1-draft
+Revision: 0.2-draft
 
 ## 1. 目的
 
@@ -56,15 +56,15 @@ payload交換後は次を再評価または再calibrationできなければな�
 
 ## 4. Normal usable range
 
-正面neutralから少なくとも次の可動域を提供する。
+正面neutralを含む通常使用可能範囲として、少なくとも次を提供する。
 
 | Axis | Minimum normal usable range |
 |---|---|
-| Yaw | 左右それぞれ **65°以上** |
+| Yaw | **左右合計180°以上**。左右配分は機構設計で決定し、左右いずれにも十分な振り向き量を確保する |
 | Pitch | 上方向 **25°以上**、下方向 **30°以上** |
 | Roll | 左右それぞれ **20°以上** |
 
-normal usable rangeはYuraが通常表現として利用できる範囲であり、hard mechanical stop位置ではない。
+Yawは360°連続回転を必須としない。normal usable rangeはYuraが通常表現として利用できる範囲であり、hard mechanical stop位置ではない。
 
 各軸の実際のrangeはCapabilityとして報告する。
 
@@ -183,7 +183,8 @@ Motor internal encoderのみでoutput backlash後のposeを観測できない構
 
 - full normal rangeでcable tension、pinch、sharp bendingを発生させない。
 - minimum bend radiusはcable/component manufacturer specification以上とする。
-- yaw無限回転は要求しない。
+- Yaw無限回転は要求しない。
+- **左右合計180°以上のYaw通常可動域**で配線寿命を成立させる。
 - slip ring採用は任意。
 - representative expressive motion profileで **1,000,000 motion cycles** をdesign life targetとする。
 - endurance test後に断線、接触不良、insulation damage、calibration drift、motion quality悪化がacceptance limitを超えてはならない。
