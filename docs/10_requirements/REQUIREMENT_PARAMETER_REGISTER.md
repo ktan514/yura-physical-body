@@ -1,7 +1,7 @@
 # Full System Requirement Parameter Register
 
 Status: Active Full System Parameter Register
-Revision: 0.2-draft
+Revision: 0.3-draft
 
 ## 1. 目的
 
@@ -20,27 +20,29 @@ Full System Requirementsで「数値化が必要」と定義された性能・�
 | Parameter ID | Parameter | Status | Current value / guidance | Freeze owner | Verification |
 |---|---|---|---|---|---|
 | PAR-MOT-001 | Physical Head rotation DoF | FIXED | Yaw / Pitch / Roll = 3 DoF | #6 | Inspection/Test |
-| PAR-MOT-002 | Yaw normal usable range | TBD | 人間らしい有限可動域。無限回転は基本要求ではない | #6 | Angle measurement |
-| PAR-MOT-003 | Pitch normal usable range | TBD | — | #6 | Angle measurement |
-| PAR-MOT-004 | Roll normal usable range | TBD | — | #6 | Angle measurement |
-| PAR-MOT-005 | Absolute hard-limit range per axis | TBD | normal rangeより外側に安全marginを持たせる | #6 | Limit test |
-| PAR-MOT-006 | Maximum commanded angular velocity | TBD | safetyより決定 | #6 | Motion measurement |
-| PAR-MOT-007 | Nominal expressive angular velocity | TBD | 生物的・静音な通常動作用 | #6 | Motion/noise test |
-| PAR-MOT-008 | Maximum angular acceleration | TBD | — | #6 | Motion measurement |
-| PAR-MOT-009 | Maximum jerk | TBD | 急激な機械感・安全riskを抑える | #6 | Motion measurement |
-| PAR-MOT-010 | Steady-state position tracking error | TBD | desired vs actual | #6 | Encoder test |
-| PAR-MOT-011 | Dynamic tracking error | TBD | trajectory追従中 | #6 | Encoder/log analysis |
-| PAR-MOT-012 | Minimum smooth resolvable motion | TBD | 微小な「生きている」動きの下限 | #6 | Human + instrumentation |
-| PAR-MOT-013 | Low-speed jitter | TBD | — | #6 | Encoder/optical measurement |
-| PAR-MOT-014 | Mechanical backlash | TBD | — | #6 | Reversal test |
-| PAR-MOT-015 | Repeatability | TBD | 同一targetへの再到達 | #6 | Repetition test |
-| PAR-MOT-016 | Normal expressive motion acoustic noise | TBD | dBA、測定距離・backgroundを同時定義 | #6 | Sound level test |
-| PAR-MOT-017 | Maximum motion acoustic noise | TBD | 高速/最大負荷条件 | #6 | Sound level test |
-| PAR-MOT-018 | Nominal display payload mass | TBD | iPhone reference + mountを含む | #6,#8 | Mass measurement |
-| PAR-MOT-019 | Maximum supported display payload mass | TBD | 将来端末交換marginを含む | #6,#8 | Load test |
-| PAR-MOT-020 | Tip-over stability margin | TBD | 最大dynamic state/cable loadを含む | #6 | Analysis + push/load test |
-| PAR-MOT-021 | Contact/pinch allowable force/energy | TBD | hazard analysisから導出 | #6,#9 | Safety test |
-| PAR-MOT-022 | Pinch/entrapment clearance requirement | TBD | geometry/riskに応じ設定 | #6,#9 | Inspection/test |
+| PAR-MOT-002 | Yaw normal usable range | FIXED | neutralから左右それぞれ65°以上 | #6 | Angle measurement |
+| PAR-MOT-003 | Pitch normal usable range | FIXED | neutralから上25°以上 / 下30°以上 | #6 | Angle measurement |
+| PAR-MOT-004 | Roll normal usable range | FIXED | neutralから左右それぞれ20°以上 | #6 | Angle measurement |
+| PAR-MOT-005 | Absolute hard-limit range per axis | TBD | normal usable range外側にencoder/calibration/overshootを吸収するmechanical safety marginを持つ。具体角度はmechanism designで確定 | #6,#9 | Limit test |
+| PAR-MOT-006 | Maximum normal commanded angular velocity | FIXED | 120°/s (2.094 rad/s) | #6 | Motion measurement |
+| PAR-MOT-007 | Nominal expressive angular velocity | FIXED | 60°/s級を中心に使用 | #6 | Motion/noise test |
+| PAR-MOT-008 | Maximum normal angular acceleration | FIXED | 360°/s² (6.283 rad/s²) | #6 | Motion measurement |
+| PAR-MOT-009 | Maximum normal angular jerk | FIXED | 2000°/s³ (34.91 rad/s³) | #6 | Motion measurement |
+| PAR-MOT-010 | Steady-state position tracking error | FIXED | 各軸 ±0.5°以内、nominal payload / 25±5°C | #6 | Encoder + optical test |
+| PAR-MOT-011 | Dynamic tracking error | FIXED | nominal expressive motionでp95 <=2.0° | #6 | Encoder/log analysis |
+| PAR-MOT-012 | Minimum smooth resolvable motion | FIXED | 0.25° target stepをstick-slip/方向反転なしで追従 | #6 | Human + optical instrumentation |
+| PAR-MOT-013 | Low-speed jitter | FIXED | holdまたは<=5°/sでuncommanded peak-to-peak <=0.30° | #6 | Encoder/optical measurement |
+| PAR-MOT-014 | Mechanical backlash | FIXED | output equivalent <=0.50° | #6 | Reversal test |
+| PAR-MOT-015 | Repeatability | FIXED | repeated target ±0.5°以内 | #6 | Repetition test |
+| PAR-MOT-016 | Normal expressive motion acoustic noise | FIXED | 0.5m、background LAeq<=25dBAでmotion LAeq<=32dBA | #6 | Sound level test |
+| PAR-MOT-017 | Maximum normal motion acoustic noise | FIXED | 0.5mでLAFmax<=40dBA。service/calibration mode除外 | #6 | Sound level test |
+| PAR-MOT-018 | Nominal removable display payload mass | FIXED | <=350 g、reference phone/case/adapter等を含む | #6,#8 | Mass measurement |
+| PAR-MOT-019 | Maximum supported removable display payload mass | FIXED | <=500 g。Capability/profileによりperformance derating可 | #6,#8 | Load test |
+| PAR-MOT-020 | Tip-over stability margin | FIXED | static overturning moment safety factor>=1.5。worst normal pose/max payloadでdisplay center相当へ10Nを2秒加えてもtip-overしない | #6,#9 | Analysis + push/load test |
+| PAR-MOT-021 | Contact/pinch allowable force/energy | TBD | universal値を仮定しない。hazard analysisと適用規格から#9でFreeze | #6,#9 | Safety test |
+| PAR-MOT-022 | Pinch/entrapment clearance requirement | TBD | guard/eliminationを優先。residual geometryに対するprobe/clearanceを#9でFreeze | #6,#9 | Inspection/test |
+| PAR-MOT-023 | Static holding torque ratio | FIXED | worst normal poseでcontinuous actuator torque比: nominal payload<=35%、maximum payload<=50%をdesign target | #6 | Torque/thermal analysis |
+| PAR-MOT-024 | Output pose sensing resolution | FIXED | <=0.1° equivalent | #6 | Encoder/measurement inspection |
 
 ## 4. Stream / Timing / Communication
 
@@ -48,20 +50,20 @@ Full System Requirementsで「数値化が必要」と定義された性能・�
 |---|---|---|---|---|---|
 | PAR-TIM-001 | Yura→Body Canonical Body State nominal rate | FIXED | 60 Hz | #5,#6 | Stream measurement |
 | PAR-TIM-002 | Supported Canonical Body State rate range | FIXED | 30–120 Hz negotiated design range | #5,#6,#8 | Contract/load test |
-| PAR-TIM-003 | Edge→MCU target update rate | TBD | network streamより高周期 | #6,#8 | Trace measurement |
-| PAR-TIM-004 | MCU inner control-loop rate | TBD | actuator/control方式から決定 | #6,#8 | Firmware trace |
-| PAR-TIM-005 | Canonical state→physical response latency p50/p95/p99 | TBD | transport budgetは#5で分離済み。physical responseは#6でFreeze | #6 | Timestamp/high-speed measurement |
+| PAR-TIM-003 | Edge→MCU target update rate | FIXED | >=200 Hz | #6,#8 | Trace measurement |
+| PAR-TIM-004 | MCU inner control-loop rate | FIXED | >=500 Hz。1 kHz級をreference target | #6,#8 | Firmware/servo trace |
+| PAR-TIM-005 | Canonical state→physical response latency p50/p95/p99 | FIXED | reference local network/nominal workload: p50<=35ms、p95<=60ms、p99<=100ms | #6 | Timestamp/high-speed measurement |
 | PAR-TIM-006 | Canonical state→display response latency p50/p95/p99 | TBD | transport budgetは#5で分離済み。display responseは#8でFreeze | #8 | Timestamp/display measurement |
 | PAR-TIM-007 | Sensor capture→Canonical Observation latency p50/p95/p99 | TBD | modality別に#7でFreeze | #7 | Timestamp/log test |
-| PAR-TIM-008 | Cross-device clock offset uncertainty | FIXED | LOCKED <= 2 ms、DEGRADED >2 ms and <=10 ms、UNSYNCED >10 msまたはmapping invalid | #5 | Clock sync test |
-| PAR-TIM-009 | Cross-modal alignment error tolerance | FIXED | Full System target <= 10 ms | #5,#7 | Synchronized stimulus test |
-| PAR-TIM-010 | Canonical Body State freshness thresholds | FIXED | FRESH <=100 ms、STALE >100–250 ms、LOST >250 ms→SAFE_HOLD、session/liveness loss 1 s→Safe Stop系 | #5,#6 | Fault injection |
-| PAR-TIM-011 | Watchdog timeout | TBD | safety controller local。#5の250 ms/1 s通信policyより短い独立hardware/software watchdogを#6/#8で決定 | #6,#8 | Fault injection |
-| PAR-TIM-012 | Dynamic transform normal interpolation gap | FIXED | <= 50 ms。超過時はDegraded、長時間extrapolation禁止 | #5 | Timestamp/transform test |
-| PAR-COM-001 | Normal network one-way latency | FIXED | p95 <= 20 ms on reference local network | #5 | Network impairment test |
-| PAR-COM-002 | Normal network jitter | FIXED | p95 <= 10 ms | #5 | Network impairment test |
+| PAR-TIM-008 | Cross-device clock offset uncertainty | FIXED | LOCKED <=2ms、DEGRADED >2ms and <=10ms、UNSYNCED >10msまたはmapping invalid | #5 | Clock sync test |
+| PAR-TIM-009 | Cross-modal alignment error tolerance | FIXED | Full System target <=10ms | #5,#7 | Synchronized stimulus test |
+| PAR-TIM-010 | Canonical Body State freshness thresholds | FIXED | FRESH <=100ms、STALE >100–250ms、LOST >250ms→SAFE_HOLD、session/liveness loss 1s→Safe Stop系 | #5,#6 | Fault injection |
+| PAR-TIM-011 | Local motion watchdog timeout | FIXED | <=100ms。network/Yuraに依存しないlocal watchdog | #6,#8 | Fault injection |
+| PAR-TIM-012 | Dynamic transform normal interpolation gap | FIXED | <=50ms。超過時はDegraded、長時間extrapolation禁止 | #5 | Timestamp/transform test |
+| PAR-COM-001 | Normal network one-way latency | FIXED | p95 <=20ms on reference local network | #5 | Network impairment test |
+| PAR-COM-002 | Normal network jitter | FIXED | p95 <=10ms | #5 | Network impairment test |
 | PAR-COM-003 | Packet loss envelope | FIXED | normal <=1%。5% random loss fault testでもunsafe motion禁止 | #5 | Network impairment test |
-| PAR-COM-004 | Reconnect recovery target time | FIXED | transport再確立後 <=3 sでREADYまたは明示的DEGRADED。motion enableにはfresh-state gate必須 | #5,#8 | Disconnect test |
+| PAR-COM-004 | Reconnect recovery target time | FIXED | transport再確立後<=3sでREADYまたは明示的DEGRADED。motion enableにはfresh-state gate必須 | #5,#8 | Disconnect test |
 
 ## 5. Display / Expression
 
@@ -70,7 +72,7 @@ Full System Requirementsで「数値化が必要」と定義された性能・�
 | PAR-DSP-001 | Minimum supported render frame rate | TBD | Reference endpoint能力を踏まえ設定 | #8 | Frame timing test |
 | PAR-DSP-002 | Render frame-time jitter | TBD | — | #8 | Frame timing test |
 | PAR-DSP-003 | Eye/gaze command resolution | TBD | 微細な視線表現を阻害しない | #4,#8 | Rendering test |
-| PAR-DSP-004 | Supported reference display size/mass envelope | TBD | iPhone世代差を考慮 | #6,#8 | Fit/load inspection |
+| PAR-DSP-004 | Supported reference display size/mass envelope | TBD | massはPAR-MOT-018/019でFreeze済み。外形寸法・mount geometryは#8でFreeze | #6,#8 | Fit/load inspection |
 | PAR-DSP-005 | Display brightness operating envelope | TBD | indoor使用範囲 | #8 | Luminance test |
 
 ## 6. Vision / Depth
@@ -129,7 +131,7 @@ Full System Requirementsで「数値化が必要」と定義された性能・�
 | PAR-PWR-003 | Idle/standby power | TBD | 常駐用途 | #8 | Power measurement |
 | PAR-PWR-004 | Input voltage/current envelope | TBD | final power architectureから決定 | #6,#8 | Electrical test |
 | PAR-THM-001 | Accessible surface temperature limit | TBD | applicable safety standard/risk assessmentで決定 | #6,#9 | Thermal test |
-| PAR-THM-002 | Actuator warning/stop temperature | TBD | component ratingより導出 | #6 | Thermal test |
+| PAR-THM-002 | Actuator warning/stop temperature | TBD | 選定component ratingとthermal modelから導出 | #6 | Thermal test |
 | PAR-THM-003 | Edge warning/throttle/stop temperature | TBD | component ratingより導出 | #8 | Thermal test |
 | PAR-ENV-001 | Operating ambient temperature | TBD | indoor desk environment | #6,#8 | Environmental test |
 | PAR-ENV-002 | Operating relative humidity | TBD | non-condensing | #6,#8 | Environmental test |
@@ -140,13 +142,13 @@ Full System Requirementsで「数値化が必要」と定義された性能・�
 
 | Parameter ID | Parameter | Status | Current value / guidance | Freeze owner | Verification |
 |---|---|---|---|---|---|
-| PAR-SAF-001 | Emergency stop response time | TBD | hazard analysisから導出 | #6,#9 | Safety test |
-| PAR-SAF-002 | Safe-stop motion completion time | TBD | condition別 | #6,#9 | Safety test |
-| PAR-SAF-003 | Maximum allowable control fault duration | TBD | watchdogとの整合 | #6,#8 | Fault injection |
-| PAR-SAF-004 | Stability safety factor / test load | TBD | tip-over analysisから決定 | #6,#9 | Analysis/test |
-| PAR-SAF-005 | Allowed user-contact force/energy | TBD | applicable standard/risk assessment | #6,#9 | Force/energy test |
+| PAR-SAF-001 | Emergency stop reaction time | FIXED | local safety input成立からstop reaction開始 <=50ms | #6,#9 | Safety test |
+| PAR-SAF-002 | Emergency/safe-stop motion completion | FIXED | maximum normal speed / maximum payloadでmotion cessation <=300ms、reaction開始後追加angular travel <=15° | #6,#9 | Safety test |
+| PAR-SAF-003 | Maximum allowable local control fault duration | FIXED | <=100msでlocal watchdog reaction開始 | #6,#8 | Fault injection |
+| PAR-SAF-004 | Stability safety factor / test load | FIXED | static factor>=1.5、worst normal pose/max payloadで10N horizontal 2s test | #6,#9 | Analysis/test |
+| PAR-SAF-005 | Allowed user-contact force/energy | TBD | 意図的powered contactを基本用途に含めない。residual contact hazardはrisk assessment/適用規格から#9でFreeze | #6,#9 | Force/energy test |
 | PAR-REL-001 | Continuous operation test duration | TBD | 常駐用途を代表するduration | #6,#8,#9 | Endurance test |
-| PAR-REL-002 | Motion endurance cycle count | TBD | cable/gear/bearing/actuator評価 | #6,#9 | Endurance test |
+| PAR-REL-002 | Motion endurance cycle count | FIXED | representative expressive motionで1,000,000 cycles design life target | #6,#9 | Endurance test |
 | PAR-REL-003 | Maximum acceptable uncontrolled restart count | FIXED | 0 | #8,#9 | Fault test |
 
 ## 11. Privacy / Diagnostics
