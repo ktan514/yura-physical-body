@@ -1,7 +1,7 @@
 # Hardware Design Basis
 
 Status: Draft for Issue #6 Review
-Revision: 0.2-draft
+Revision: 0.3-draft
 Purpose: ハードウェア要求仕様書を作成する前段の設計基準。
 
 ## 1. Reference Physical Form
@@ -66,7 +66,7 @@ Brushless servo classは有力候補だが、固定技術ではない。
 
 主要design envelope:
 
-- Yaw: 左右各65°以上
+- Yaw: **左右合計180°以上**。360°連続回転は必須ではない
 - Pitch: 上25°以上 / 下30°以上
 - Roll: 左右各20°以上
 - normal max velocity: 120°/s
@@ -152,7 +152,7 @@ torque-offはmechanically safeであることを確認できた場合のみsafe 
 - display交換可能
 - sensor/communication/power wiringを保守可能
 
-Yaw無限回転は要求しない。
+Yaw無限回転は要求しないが、**左右合計180°以上の通常可動域**を成立させる配線設計を要求する。
 
 representative expressive motionで1,000,000 cyclesをdesign life targetとする。
 
