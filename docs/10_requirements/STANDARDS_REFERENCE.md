@@ -1,10 +1,26 @@
 # Safety / Regulatory Reference Notes
 
-Status: Informative for Issue #3
+Status: Informative for Full System Design
 Last checked: 2026-09-02
 
 本書は要求仕様の参考情報であり、適合宣言ではない。
 Design Freeze時点で最新版、適用範囲、日本国内法規との関係を再確認する。
+
+## ISO 12100
+
+### ISO 12100:2010
+
+- Title: `Safety of machinery — General principles for design — Risk assessment and risk reduction`
+- Official: https://www.iso.org/standard/51528.html
+- 2022年にreview/confirmされ、2026-09-02時点ではpublished/current版。
+- hazard identification、risk estimation/evaluation、inherently safe design、protective measures、残留riskのdocument化に関する基礎方法論として#6/#9で参照する。
+
+### ISO/DIS 12100.3
+
+- Title: `Safety of machinery — General principles for design — Risk assessment and risk reduction`
+- Official: https://www.iso.org/standard/88578.html
+- ISO 12100:2010の後継として開発中。
+- Full System Design Freeze時点で発行状況を再確認する。
 
 ## ISO 13482
 
@@ -19,7 +35,8 @@ Design Freeze時点で最新版、適用範囲、日本国内法規との関係�
 
 - Title: `Robotics — Safety requirements for service robots`
 - Official: https://www.iso.org/standard/83498.html
-- 2026-09-02確認時点ではFinal Draft International Standardで、ISO 13482:2014を置き換える予定。
+- 2026-09-02確認時点ではFinal Draft International Standard、approval phaseで、ISO 13482:2014を置き換える予定。
+- personal/professional service robotと人とのphysical contact、functional safetyを含む安全要求を扱う。
 - Full System Design Freeze時点で正式発行状況を再確認する。
 
 ### ISO/TR 23482-1:2020
@@ -27,6 +44,7 @@ Design Freeze時点で最新版、適用範囲、日本国内法規との関係�
 - Title: `Robotics — Application of ISO 13482 — Part 1: Safety-related test methods`
 - Official: https://www.iso.org/standard/71564.html
 - ISO 13482に関連する安全試験方法の参考資料として利用候補。
+- test parameterはrobot design/useのrisk assessmentに基づきmanufacturerが決定する考え方を参考にする。
 
 ## IEC 62368-1
 
@@ -34,8 +52,18 @@ Design Freeze時点で最新版、適用範囲、日本国内法規との関係�
 
 - Title: `Audio/video, information and communication technology equipment — Part 1: Safety requirements`
 - Official: https://webstore.iec.ch/en/publication/69308
-- Edition 4.0。2025-08 corrected versionが公開されている。
+- Edition 4.0。
 - Display、audio、ICT/edge compute、power等を含む構成に対するproduct safety観点の適用可能性を#6/#8/#9で評価する。
+
+## #6での扱い
+
+#6では以下を安全設計原則へ反映する。
+
+- hazardをまず機構・低energy化・配置で除去する
+- residual pinch/shear/contact riskをsoftwareだけで成立させない
+- power/network loss時のlocal fail-safeを持つ
+- contact force/clearance等、robot geometryとrisk assessmentに依存する値を規格名だけから推測して固定しない
+- final acceptance parameterは#9で適用規格とrisk assessmentを確認してFreezeする
 
 ## 運用ルール
 
