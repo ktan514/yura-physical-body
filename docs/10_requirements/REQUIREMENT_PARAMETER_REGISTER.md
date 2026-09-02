@@ -1,7 +1,7 @@
 # Full System Requirement Parameter Register
 
-Status: Draft for Issue #3 Review
-Revision: 0.1-draft
+Status: Active Full System Parameter Register
+Revision: 0.2-draft
 
 ## 1. 目的
 
@@ -11,7 +11,7 @@ Full System Requirementsで「数値化が必要」と定義された性能・�
 
 ## 2. Status
 
-- **FIXED**: 上位要求として既に確定
+- **FIXED**: 上位要求または担当Issueで確定済み
 - **PROPOSED**: 初期設計目標。後続Issueで妥当性確認後にFreeze
 - **TBD**: 数値化対象と責務は確定。値は後続Issueで決定
 
@@ -46,21 +46,22 @@ Full System Requirementsで「数値化が必要」と定義された性能・�
 
 | Parameter ID | Parameter | Status | Current value / guidance | Freeze owner | Verification |
 |---|---|---|---|---|---|
-| PAR-TIM-001 | Yura→Body Canonical Body State nominal rate | PROPOSED | 60 Hzを中心値候補とする | #5,#6 | Stream measurement |
-| PAR-TIM-002 | Supported Canonical Body State rate range | PROPOSED | 30–120 Hz設計レンジ | #5,#6,#8 | Contract/load test |
+| PAR-TIM-001 | Yura→Body Canonical Body State nominal rate | FIXED | 60 Hz | #5,#6 | Stream measurement |
+| PAR-TIM-002 | Supported Canonical Body State rate range | FIXED | 30–120 Hz negotiated design range | #5,#6,#8 | Contract/load test |
 | PAR-TIM-003 | Edge→MCU target update rate | TBD | network streamより高周期 | #6,#8 | Trace measurement |
 | PAR-TIM-004 | MCU inner control-loop rate | TBD | actuator/control方式から決定 | #6,#8 | Firmware trace |
-| PAR-TIM-005 | Canonical state→physical response latency p50/p95/p99 | TBD | freshness重視 | #5,#6 | Timestamp/high-speed measurement |
-| PAR-TIM-006 | Canonical state→display response latency p50/p95/p99 | TBD | — | #5,#8 | Timestamp/display measurement |
-| PAR-TIM-007 | Sensor capture→Canonical Observation latency p50/p95/p99 | TBD | modality別に定義 | #5,#7 | Timestamp/log test |
-| PAR-TIM-008 | Cross-device clock offset tolerance | TBD | — | #5 | Clock sync test |
-| PAR-TIM-009 | Cross-modal alignment error tolerance | TBD | Camera/Audio/Motion等 | #5,#7 | Synchronized stimulus test |
-| PAR-TIM-010 | Stale Body State timeout | TBD | timeout後safe behaviorへ移行 | #5,#6 | Fault injection |
-| PAR-TIM-011 | Watchdog timeout | TBD | safety controller local | #6,#8 | Fault injection |
-| PAR-COM-001 | Tolerable network one-way latency | TBD | local network想定 | #5 | Network impairment test |
-| PAR-COM-002 | Tolerable network jitter | TBD | — | #5 | Network impairment test |
-| PAR-COM-003 | Tolerable packet loss | TBD | stream種別ごと | #5 | Network impairment test |
-| PAR-COM-004 | Reconnect recovery target time | TBD | safety確認完了まで | #5,#8 | Disconnect test |
+| PAR-TIM-005 | Canonical state→physical response latency p50/p95/p99 | TBD | transport budgetは#5で分離済み。physical responseは#6でFreeze | #6 | Timestamp/high-speed measurement |
+| PAR-TIM-006 | Canonical state→display response latency p50/p95/p99 | TBD | transport budgetは#5で分離済み。display responseは#8でFreeze | #8 | Timestamp/display measurement |
+| PAR-TIM-007 | Sensor capture→Canonical Observation latency p50/p95/p99 | TBD | modality別に#7でFreeze | #7 | Timestamp/log test |
+| PAR-TIM-008 | Cross-device clock offset uncertainty | FIXED | LOCKED <= 2 ms、DEGRADED >2 ms and <=10 ms、UNSYNCED >10 msまたはmapping invalid | #5 | Clock sync test |
+| PAR-TIM-009 | Cross-modal alignment error tolerance | FIXED | Full System target <= 10 ms | #5,#7 | Synchronized stimulus test |
+| PAR-TIM-010 | Canonical Body State freshness thresholds | FIXED | FRESH <=100 ms、STALE >100–250 ms、LOST >250 ms→SAFE_HOLD、session/liveness loss 1 s→Safe Stop系 | #5,#6 | Fault injection |
+| PAR-TIM-011 | Watchdog timeout | TBD | safety controller local。#5の250 ms/1 s通信policyより短い独立hardware/software watchdogを#6/#8で決定 | #6,#8 | Fault injection |
+| PAR-TIM-012 | Dynamic transform normal interpolation gap | FIXED | <= 50 ms。超過時はDegraded、長時間extrapolation禁止 | #5 | Timestamp/transform test |
+| PAR-COM-001 | Normal network one-way latency | FIXED | p95 <= 20 ms on reference local network | #5 | Network impairment test |
+| PAR-COM-002 | Normal network jitter | FIXED | p95 <= 10 ms | #5 | Network impairment test |
+| PAR-COM-003 | Packet loss envelope | FIXED | normal <=1%。5% random loss fault testでもunsafe motion禁止 | #5 | Network impairment test |
+| PAR-COM-004 | Reconnect recovery target time | FIXED | transport再確立後 <=3 sでREADYまたは明示的DEGRADED。motion enableにはfresh-state gate必須 | #5,#8 | Disconnect test |
 
 ## 5. Display / Expression
 
