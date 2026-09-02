@@ -1,7 +1,7 @@
 # Hardware Feasibility Review Checklist
 
 Status: Draft for Issue #6 Review
-Revision: 0.1-draft
+Revision: 0.2-draft
 
 ## 1. 目的
 
@@ -12,7 +12,8 @@ Hardware Engineerが#6の要求を受け取り、具体機構へ落とす前に�
 ## 2. Mechanism concept
 
 - [ ] Yaw / Pitch / Roll 3DoFを同時連続制御できる
-- [ ] normal usable rangeを満たす
+- [ ] Yawのnormal usable rangeとして**左右合計180°以上**を満たせる
+- [ ] Pitch / Rollのnormal usable rangeを満たす
 - [ ] hard stopより先にcable/connectorが損傷しない
 - [ ] center of mass / gravity torqueを十分抑えられる
 - [ ] nominal/max payloadを保持できる
@@ -21,6 +22,7 @@ Hardware Engineerが#6の要求を受け取り、具体機構へ落とす前に�
 提案mechanism:
 
 - axis arrangement:
+- Yaw range allocation / cable strategy:
 - transmission:
 - counterbalance/brake:
 - estimated moving mass:
@@ -72,6 +74,7 @@ residual hazard:
 
 - [ ] full normal rangeでcable tension/pinchなし
 - [ ] manufacturer bend radiusを確保
+- [ ] **Yaw左右合計180°以上**でもcable twist / fatigueを許容範囲にできる
 - [ ] representative motion 1,000,000 cyclesを狙える構成
 - [ ] Display Endpoint交換時に機構分解が最小限
 - [ ] calibration procedureを実行可能
