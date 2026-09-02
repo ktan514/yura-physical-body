@@ -1,19 +1,46 @@
-# リポジトリ雛形
+# yura-physical-body
 
-このリポジトリは、新しいGitHubリポジトリを作成するときに使用する共通テンプレートです。
+AI「ゆら」の Physical Body と、ゆらシステムとの境界仕様を管理するためのリポジトリ。
 
-含まれる内容:
+## 目的
 
-- AI作業規約
-- Git / branch / commit / PR / review 共通ルール
-- Issue本文の標準フォーマット
-- Pull Request本文の標準フォーマット
-- GitHub Copilot向け共通指示
-- リポジトリ固有規約の記載場所
+本リポジトリは `ai-liver-yura` から独立し、次を Single Source of Truth として管理する。
 
-## 運用原則
+- Yura System ↔ Body 間の境界契約
+- Canonical Body State
+- Canonical Observation
+- Physical Body Edge Runtime
+- Physical Body の機構・電装・センサー要求
+- Perception / Sensor Fusion
+- Real-time Motion Control
+- Display Endpoint
+- 安全・障害時動作
+- ハードウェア技術者への制作依頼資料
+- 結合・受入試験仕様
 
-共通規約は `docs/GITHUB_OPERATION_RULES.md` を正本とします。
-リポジトリ固有の追加規約は `docs/REPOSITORY_RULES.md` に記載します。
+## 設計原則
 
-新しいリポジトリはこのテンプレートから生成し、生成後にリポジトリ固有情報だけを追加してください。
+1. Full System を先に設計し、V1 は Full System のサブセットとして後から定義する。
+2. Live2D / 3D / Physical Body は同じ Canonical Body State 境界に従う。
+3. Yura から Body へは動作プリセット名ではなく、時間連続な身体状態を送る。
+4. Physical Body は人格判断を行わず、感覚処理・実機制御・安全制御を担う。
+5. ハードウェア能力は Capability として宣言し、Yura の身体モデルを機体能力で制限しない。
+6. iPhone は Body 本体ではなく、交換可能な Display/Sensor Endpoint の一実装とする。
+7. Full System Design Freeze 後に V1 設計およびハードウェア制作依頼資料を確定する。
+
+## 現在の工程
+
+**Full System Design / Baseline v0.1**
+
+V1 の機能削減・部品選定はまだ行わない。
+
+## 主要文書
+
+- `docs/00_project/PROJECT_CHARTER.md`
+- `docs/10_requirements/FULL_SYSTEM_REQUIREMENTS.md`
+- `docs/20_architecture/FULL_SYSTEM_ARCHITECTURE.md`
+- `docs/30_interfaces/BOUNDARY_CONTRACT.md`
+- `docs/40_hardware/HARDWARE_DESIGN_BASIS.md`
+- `docs/50_perception/PERCEPTION_ARCHITECTURE.md`
+- `docs/60_verification/FULL_SYSTEM_VERIFICATION_STRATEGY.md`
+- `docs/70_versions/full-system/DESIGN_BASELINE.md`
